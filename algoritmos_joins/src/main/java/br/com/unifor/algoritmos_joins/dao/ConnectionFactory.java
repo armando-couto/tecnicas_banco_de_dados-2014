@@ -22,7 +22,7 @@ public class ConnectionFactory {
 	public Connection getConnection() throws SQLException {
 		String user = "root";
 		String password = "root";
-		String url = "jdbc:mysql://localhost/musica";
+		String url = "jdbc:mysql://localhost:3306/musica";
 		return DriverManager.getConnection(url, user, password);
 	}
 }

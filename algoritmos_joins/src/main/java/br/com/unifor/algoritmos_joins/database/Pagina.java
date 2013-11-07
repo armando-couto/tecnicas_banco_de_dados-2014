@@ -8,27 +8,27 @@ import java.util.List;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class Page {
+public class Pagina {
 
 	private final int maxSize;
 	private int size;
-	private List<Tuple> tuples;
+	private List<Tupla> tuples;
 	
-	public Page(int maxSize){
+	public Pagina(int maxSize){
 		this.maxSize = maxSize;
 		this.size = 0;
-		this.tuples = new ArrayList<Tuple>();
+		this.tuples = new ArrayList<Tupla>();
 	}
 
 	public int getSize() {
 		return size;
 	}
 
-	public List<Tuple> getTuples() {
+	public List<Tupla> getTuples() {
 		return tuples;
 	}
 
-	public void setTuples(List<Tuple> tuples) {
+	public void setTuples(List<Tupla> tuples) {
 		this.tuples = tuples;
 	}
 	
@@ -36,7 +36,7 @@ public class Page {
 		return maxSize;
 	}
 	
-	public void addTuple(Tuple tuple){
+	public void addTuple(Tupla tuple){
 		size++;
 		tuples.add(tuple);
 	}

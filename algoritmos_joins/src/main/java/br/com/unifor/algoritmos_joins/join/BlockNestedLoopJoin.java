@@ -2,9 +2,9 @@ package br.com.unifor.algoritmos_joins.join;
 
 import java.util.List;
 
-import br.com.unifor.algoritmos_joins.database.Page;
+import br.com.unifor.algoritmos_joins.database.Pagina;
 import br.com.unifor.algoritmos_joins.database.RelationalTable;
-import br.com.unifor.algoritmos_joins.database.Tuple;
+import br.com.unifor.algoritmos_joins.database.Tupla;
 import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
 import br.com.unifor.algoritmos_joins.main.GlobalVars;
 import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
@@ -23,14 +23,14 @@ public class BlockNestedLoopJoin implements JoinAlgorithm {
 		RelationalTable resultTable = RelationalTable.newTable(
 				GlobalVars.pageSize, resultColumns);
 		try {
-			List<Tuple> artistTuples = artist.getAllTuples();
-			List<Tuple> musicTuples = music.getAllTuples();
+			List<Tupla> artistTuples = artist.getAllTuples();
+			List<Tupla> musicTuples = music.getAllTuples();
 
-			for (Page pagesArtist : artist.getAllPages()) {
-				for (Page pagesMusic : music.getAllPages()) {
+			for (Pagina pagesArtist : artist.getAllPages()) {
+				for (Pagina pagesMusic : music.getAllPages()) {
 					
-					for (Tuple artistTuple : pagesArtist.getTuples()) {
-						for (Tuple musicTuple : pagesMusic.getTuples()) {
+					for (Tupla artistTuple : pagesArtist.getTuples()) {
+						for (Tupla musicTuple : pagesMusic.getTuples()) {
 							int aIDMusic = (Integer) musicTuple
 									.get("ID_ARTIST");
 							int aIDArtist = (Integer) artistTuple

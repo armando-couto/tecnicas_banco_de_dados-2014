@@ -11,19 +11,19 @@ import java.util.Map;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class Tuple {
+public class Tupla {
 	private List<String> columnsName;
 	private List<Object> values;
 	private Map<String, Object> valueMap;
 	private int size;
 
-	public Tuple() {
+	public Tupla() {
 		this.columnsName = new ArrayList<String>();
 		this.values = new ArrayList<Object>();
 		this.valueMap = new HashMap<String, Object>();
 	}
 
-	public Tuple(String[] columnsName, Object[] values) {
+	public Tupla(String[] columnsName, Object[] values) {
 		this.columnsName = new ArrayList<String>(Arrays.asList(columnsName));
 		this.values = new ArrayList<Object>(Arrays.asList(values));
 		this.valueMap = new HashMap<String, Object>();

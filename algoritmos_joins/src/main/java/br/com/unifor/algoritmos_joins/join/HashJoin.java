@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import br.com.unifor.algoritmos_joins.database.RelationalTable;
-import br.com.unifor.algoritmos_joins.database.Tuple;
+import br.com.unifor.algoritmos_joins.database.Tupla;
 import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
 import br.com.unifor.algoritmos_joins.main.GlobalVars;
 import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
@@ -26,23 +26,23 @@ public class HashJoin implements JoinAlgorithm {
 		RelationalTable resultTable = RelationalTable.newTable(
 				GlobalVars.pageSize, resultColumns);
 		try {
-			List<Tuple> artistTuples = artist.getAllTuples();
-			List<Tuple> musicTuples = music.getAllTuples();
+			List<Tupla> artistTuples = artist.getAllTuples();
+			List<Tupla> musicTuples = music.getAllTuples();
 
-			for (Tuple musicTuple : musicTuples) {
+			for (Tupla musicTuple : musicTuples) {
 				Integer artistID = (Integer) musicTuple.get("ID_ARTIST");
 				int bucket = hashFunction(artistID);
 				hashTableMusic.put(bucket, artistID);
 			}
 
-			for (Tuple artistTuple : artistTuples) {
+			for (Tupla artistTuple : artistTuples) {
 				Integer artistID = (Integer) artistTuple.get("ID");
 				int bucket = hashFunction(artistID);
 				hashTableArtist.put(bucket, artistID);
 			}
 
-			for (Tuple artistTuple : artistTuples) {
-				for (Tuple musicTuple : musicTuples) {
+			for (Tupla artistTuple : artistTuples) {
+				for (Tupla musicTuple : musicTuples) {
 					int bucketMusic = hashFunction((Integer) musicTuple
 							.get("ID_ARTIST"));
 					int bucketArtist = hashFunction((Integer) artistTuple

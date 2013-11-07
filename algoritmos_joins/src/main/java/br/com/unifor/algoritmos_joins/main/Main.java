@@ -3,8 +3,8 @@ package br.com.unifor.algoritmos_joins.main;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import br.com.unifor.algoritmos_joins.dao.Artist;
-import br.com.unifor.algoritmos_joins.dao.Music;
+import br.com.unifor.algoritmos_joins.dao.Artista;
+import br.com.unifor.algoritmos_joins.dao.Musica;
 import br.com.unifor.algoritmos_joins.database.RelationalTable;
 import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
 import br.com.unifor.algoritmos_joins.join.BlockNestedLoopJoin;
@@ -28,10 +28,10 @@ public class Main {
 	private static RelationalTable music;
 
 	public static void main(String[] args) throws SQLException, DatabaseException {
-		Music m = new Music();
+		Musica m = new Musica();
 		m.search();
 
-		Artist a = new Artist();
+		Artista a = new Artista();
 		a.search();
 
 		artist = a.getSearch();

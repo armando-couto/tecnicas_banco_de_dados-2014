@@ -3,7 +3,7 @@ package br.com.unifor.algoritmos_joins.join;
 import java.util.List;
 
 import br.com.unifor.algoritmos_joins.database.RelationalTable;
-import br.com.unifor.algoritmos_joins.database.Tuple;
+import br.com.unifor.algoritmos_joins.database.Tupla;
 import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
 import br.com.unifor.algoritmos_joins.main.GlobalVars;
 import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
@@ -19,11 +19,11 @@ public class MergeJoin implements JoinAlgorithm {
 		String[] resultColumns = ArrayUtils.concat(artist.getColumnsNames(), music.getColumnsNames());
 		RelationalTable resultTable = RelationalTable.newTable(GlobalVars.pageSize, resultColumns);
 		try {
-			List<Tuple> r = artist.orderBy("ID");
-			List<Tuple> s = music.orderBy("ID_ARTIST");
+			List<Tupla> r = artist.orderBy("ID");
+			List<Tupla> s = music.orderBy("ID_ARTIST");
 
-			for (Tuple tr : r) {
-				for (Tuple ts : s) {
+			for (Tupla tr : r) {
+				for (Tupla ts : s) {
 					Integer rAtr = (Integer) tr.get("ID");
 					Integer sAtr = (Integer) ts.get("ID_ARTIST");
 					if (sAtr >= rAtr) {

@@ -13,9 +13,10 @@ import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
  * @date 29/10/2013
  */
 public class RelationalTable {
+
 	private List<String> columnName;
-	private List<Page> pages;
-	private Page lastPage;
+	private List<Pagina> pages;
+	private Pagina lastPage;
 	private int totalMaxPageSize;
 	private int totalPagesNum = 0;
 	private int totalTuplesNum = 0;
@@ -31,7 +32,7 @@ public class RelationalTable {
 			table.columnName.add(columnName);
 		}
 
-		table.pages = new ArrayList<Page>();
+		table.pages = new ArrayList<Pagina>();
 
 		return table;
 	}
@@ -49,7 +50,7 @@ public class RelationalTable {
 			throw new DatabaseException("The column names must match the name of the table columns");
 		}
 
-		Tuple tuple = new Tuple(columns, values);
+		Tupla tuple = new Tupla(columns, values);
 
 		if (lastPage == null || lastPage.getSize() == totalMaxPageSize) {
 			this.addPage();
@@ -59,10 +60,10 @@ public class RelationalTable {
 		totalTuplesNum++;
 	}
 
-	public List<Tuple> orderBy(String column) {
-		List<Tuple> tuples = getAllTuples();
-		Collections.sort(tuples, new Comparator<Tuple>() {
-			public int compare(Tuple o1, Tuple o2) {
+	public List<Tupla> orderBy(String column) {
+		List<Tupla> tuples = getAllTuples();
+		Collections.sort(tuples, new Comparator<Tupla>() {
+			public int compare(Tupla o1, Tupla o2) {
 
 				Integer t1aID = (Integer) o1.get("ARTIST_ID");
 				Integer t2aID = (Integer) o2.get("ARTIST_ID");
@@ -87,7 +88,7 @@ public class RelationalTable {
 	}
 
 	private void addPage() {
-		Page newPage = new Page(totalMaxPageSize);
+		Pagina newPage = new Pagina(totalMaxPageSize);
 		pages.add(newPage);
 		lastPage = newPage;
 		totalPagesNum++;
@@ -101,13 +102,13 @@ public class RelationalTable {
 		return totalPagesNum;
 	}
 
-	public List<Page> getAllPages() {
+	public List<Pagina> getAllPages() {
 		return this.pages;
 	}
 
-	public List<Tuple> getAllTuples() {
-		List<Tuple> returnList = new ArrayList<Tuple>();
-		for (Page p : pages) {
+	public List<Tupla> getAllTuples() {
+		List<Tupla> returnList = new ArrayList<Tupla>();
+		for (Pagina p : pages) {
 			returnList.addAll(p.getTuples());
 		}
 		return returnList;
