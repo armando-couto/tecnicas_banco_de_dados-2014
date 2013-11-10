@@ -22,7 +22,7 @@ public class Tupla implements Serializable {
 	private List<String> columnsName;
 	private List<Object> values;
 	private Map<String, Object> valueMap;
-	private int size;
+//	private int size;
 
 	public Tupla() {
 		this.columnsName = new ArrayList<String>();

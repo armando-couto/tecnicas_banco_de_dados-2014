@@ -1,12 +1,9 @@
 package br.com.unifor.algoritmos_joins.join;
 
-import java.util.List;
-
 import br.com.unifor.algoritmos_joins.database.Pagina;
 import br.com.unifor.algoritmos_joins.database.RelationalTable;
 import br.com.unifor.algoritmos_joins.database.Tupla;
 import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
-import br.com.unifor.algoritmos_joins.main.GlobalVars;
 import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
 
 /**
@@ -16,23 +13,27 @@ import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
  */
 public class BlockNestedLoopJoin implements AlgoritmoJoin {
 
-	public RelationalTable join(RelationalTable artist, RelationalTable music) {
-		String[] resultColumns = ArrayUtils.concat(artist.getColumnsNames(), music.getColumnsNames());
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -6192906236537302180L;
+	
+	public int pageSize = 5;	
+	
+	public RelationalTable join(RelationalTable autor, RelationalTable livro) {
+		String[] resultColumns = ArrayUtils.concat(autor.getColumnsNames(), livro.getColumnsNames());
 
-		RelationalTable resultTable = RelationalTable.newTable(GlobalVars.pageSize, resultColumns);
+		RelationalTable resultTable = RelationalTable.newTable(pageSize, resultColumns);
 		try {
-			List<Tupla> artistTuples = artist.getAllTuples();
-			List<Tupla> musicTuples = music.getAllTuples();
+			for (Pagina pagesAutor : autor.getAllPages()) {
+				for (Pagina pagesLivro : livro.getAllPages()) {
 
-			for (Pagina pagesArtist : artist.getAllPages()) {
-				for (Pagina pagesMusic : music.getAllPages()) {
-
-					for (Tupla artistTuple : pagesArtist.getTuples()) {
-						for (Tupla musicTuple : pagesMusic.getTuples()) {
-							int aIDMusic = (Integer) musicTuple.get("ID_ARTIST");
-							int aIDArtist = (Integer) artistTuple.get("ID");
-							if (aIDMusic == aIDArtist) {
-								Object[] valuesArray = ArrayUtils.concat(artistTuple.toArray(), musicTuple.toArray());
+					for (Tupla autorTupla : pagesAutor.getTuplas()) {
+						for (Tupla livroTupla : pagesLivro.getTuplas()) {
+							int aIDLivro = (Integer) livroTupla.get("ID_AUTOR");
+							int aIDAutor = (Integer) autorTupla.get("ID");
+							if (aIDLivro == aIDAutor) {
+								Object[] valuesArray = ArrayUtils.concat(autorTupla.toArray(), livroTupla.toArray());
 								resultTable.insert(resultColumns, valuesArray);
 							}
 						}
@@ -42,7 +43,6 @@ public class BlockNestedLoopJoin implements AlgoritmoJoin {
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}
-
 		return resultTable;
 	}
 }

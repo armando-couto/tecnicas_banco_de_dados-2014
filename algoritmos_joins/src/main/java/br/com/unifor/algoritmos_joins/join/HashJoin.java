@@ -6,7 +6,6 @@ import java.util.List;
 import br.com.unifor.algoritmos_joins.database.RelationalTable;
 import br.com.unifor.algoritmos_joins.database.Tupla;
 import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
-import br.com.unifor.algoritmos_joins.main.GlobalVars;
 import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
 
 /**
@@ -16,35 +15,41 @@ import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
  */
 public class HashJoin implements AlgoritmoJoin {
 
-	private Hashtable<Integer, Integer> hashTableArtist = new Hashtable<Integer, Integer>();
-	private Hashtable<Integer, Integer> hashTableMusic = new Hashtable<Integer, Integer>();
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -5098223404919048277L;
+	
+	public int pageSize = 5;
+	private Hashtable<Integer, Integer> hashTableAutor = new Hashtable<Integer, Integer>();
+	private Hashtable<Integer, Integer> hashTableLivro = new Hashtable<Integer, Integer>();
 
-	public RelationalTable join(RelationalTable artist, RelationalTable music) {
-		String[] resultColumns = ArrayUtils.concat(artist.getColumnsNames(), music.getColumnsNames());
+	public RelationalTable join(RelationalTable autor, RelationalTable livro) {
+		String[] resultColumns = ArrayUtils.concat(autor.getColumnsNames(), livro.getColumnsNames());
 
-		RelationalTable resultTable = RelationalTable.newTable(GlobalVars.pageSize, resultColumns);
+		RelationalTable resultTable = RelationalTable.newTable(pageSize, resultColumns);
 		try {
-			List<Tupla> artistTuples = artist.getAllTuples();
-			List<Tupla> musicTuples = music.getAllTuples();
+			List<Tupla> autorTuplas = autor.getAllTuplas();
+			List<Tupla> livroTuplas = livro.getAllTuplas();
 
-			for (Tupla musicTuple : musicTuples) {
-				Integer artistID = (Integer) musicTuple.get("ID_ARTIST");
-				int bucket = hashFunction(artistID);
-				hashTableMusic.put(bucket, artistID);
+			for (Tupla livroTupla : livroTuplas) {
+				Integer autorID = (Integer) livroTupla.get("ID_AUTOR");
+				int bucket = hashFunction(autorID);
+				hashTableLivro.put(bucket, autorID);
 			}
 
-			for (Tupla artistTuple : artistTuples) {
-				Integer artistID = (Integer) artistTuple.get("ID");
-				int bucket = hashFunction(artistID);
-				hashTableArtist.put(bucket, artistID);
+			for (Tupla autorTupla : autorTuplas) {
+				Integer autorID = (Integer) autorTupla.get("ID");
+				int bucket = hashFunction(autorID);
+				hashTableAutor.put(bucket, autorID);
 			}
 
-			for (Tupla artistTuple : artistTuples) {
-				for (Tupla musicTuple : musicTuples) {
-					int bucketMusic = hashFunction((Integer) musicTuple.get("ID_ARTIST"));
-					int bucketArtist = hashFunction((Integer) artistTuple.get("ID"));
-					if (bucketMusic == bucketArtist) {
-						Object[] valuesArray = ArrayUtils.concat(artistTuple.toArray(), musicTuple.toArray());
+			for (Tupla autorTupla : autorTuplas) {
+				for (Tupla livroTupla : livroTuplas) {
+					int bucketLivro = hashFunction((Integer) livroTupla.get("ID_AUTOR"));
+					int bucketAutor = hashFunction((Integer) autorTupla.get("ID"));
+					if (bucketLivro == bucketAutor) {
+						Object[] valuesArray = ArrayUtils.concat(autorTupla.toArray(), livroTupla.toArray());
 						resultTable.insert(resultColumns, valuesArray);
 					}
 				}
@@ -52,7 +57,6 @@ public class HashJoin implements AlgoritmoJoin {
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}
-
 		return resultTable;
 	}
 

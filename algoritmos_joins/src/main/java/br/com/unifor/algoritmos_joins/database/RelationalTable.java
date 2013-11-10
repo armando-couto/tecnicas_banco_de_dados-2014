@@ -16,10 +16,10 @@ import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
 public class RelationalTable implements Serializable {
 
 	/**
-	 * Serial UID. 
+	 * Serial UID.
 	 */
 	private static final long serialVersionUID = -2488513465577324063L;
-	
+
 	private List<String> columnName;
 	private List<Pagina> pages;
 	private Pagina lastPage;
@@ -45,7 +45,7 @@ public class RelationalTable implements Serializable {
 
 	public void insert(String[] columns, Object[] values) throws DatabaseException {
 		if (columns == null || values == null) {
-			throw new DatabaseException("The parametes of a insert operation must not to be null");
+			throw new DatabaseException("The parametes of a insert operation must not to be null.");
 		}
 
 		if (columns.length > columnName.size()) {
@@ -53,7 +53,7 @@ public class RelationalTable implements Serializable {
 		}
 
 		if (!verifyColumnNames(columns)) {
-			throw new DatabaseException("The column names must match the name of the table columns");
+			throw new DatabaseException("The column names must match the name of the table columns.");
 		}
 
 		Tupla tuple = new Tupla(columns, values);
@@ -67,12 +67,12 @@ public class RelationalTable implements Serializable {
 	}
 
 	public List<Tupla> orderBy(String column) {
-		List<Tupla> tuples = getAllTuples();
+		List<Tupla> tuples = getAllTuplas();
 		Collections.sort(tuples, new Comparator<Tupla>() {
 			public int compare(Tupla o1, Tupla o2) {
 
-				Integer t1aID = (Integer) o1.get("ARTIST_ID");
-				Integer t2aID = (Integer) o2.get("ARTIST_ID");
+				Integer t1aID = (Integer) o1.get("AUTOR_ID");
+				Integer t2aID = (Integer) o2.get("AUTOR_ID");
 
 				if (t1aID == null)
 					return -1;
@@ -112,10 +112,10 @@ public class RelationalTable implements Serializable {
 		return this.pages;
 	}
 
-	public List<Tupla> getAllTuples() {
+	public List<Tupla> getAllTuplas() {
 		List<Tupla> returnList = new ArrayList<Tupla>();
 		for (Pagina p : pages) {
-			returnList.addAll(p.getTuples());
+			returnList.addAll(p.getTuplas());
 		}
 		return returnList;
 	}

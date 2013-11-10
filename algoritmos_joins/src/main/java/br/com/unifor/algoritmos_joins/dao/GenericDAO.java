@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class BasicDAO implements Serializable {
+public class GenericDAO implements Serializable {
 
 	/**
 	 * Serial UID.

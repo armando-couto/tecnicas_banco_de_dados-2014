@@ -1,5 +1,6 @@
 package br.com.unifor.algoritmos_joins.utils;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.com.unifor.algoritmos_joins.database.Pagina;
@@ -11,12 +12,17 @@ import br.com.unifor.algoritmos_joins.database.Tupla;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class RelationalTableUtils {
+public class RelacionamentoDasTabelas implements Serializable {
+
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = 8401574520672500363L;
 
 	public static void print(RelationalTable rt) {
 		StringBuffer sbColumn = new StringBuffer();
 		String[] columns = rt.getColumnsNames();
-		List<Tupla> tuplas = rt.getAllTuples();
+//		List<Tupla> tuplas = rt.getAllTuples();
 		List<Pagina> pages = rt.getAllPages();
 
 		for (int i = 0; i < columns.length - 1; i++) {
@@ -34,7 +40,7 @@ public class RelationalTableUtils {
 			sbColumn.append("PAGINA " + i);
 			sbColumn.append("\n");
 			Pagina p = pages.get(i);
-			for (Tupla t : p.getTuples()) {
+			for (Tupla t : p.getTuplas()) {
 				for (int j = 0; j < t.getSize() - 1; j++) {
 					sbColumn.append(t.get(j) + "\t|");
 				}

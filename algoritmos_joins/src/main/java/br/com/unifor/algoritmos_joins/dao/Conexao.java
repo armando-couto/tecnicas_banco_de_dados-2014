@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class ConnectionFactory implements Serializable {
+public class Conexao implements Serializable {
 
 	/**
 	 * Serial UID.
@@ -27,8 +27,8 @@ public class ConnectionFactory implements Serializable {
 
 	public Connection getConnection() throws SQLException {
 		String user = "root";
-		String password = "root";
-		String url = "jdbc:mysql://localhost:3306/musica";
+		String password = "";
+		String url = "jdbc:mysql://localhost:3306/bd2_np2";
 		return DriverManager.getConnection(url, user, password);
 	}
 }

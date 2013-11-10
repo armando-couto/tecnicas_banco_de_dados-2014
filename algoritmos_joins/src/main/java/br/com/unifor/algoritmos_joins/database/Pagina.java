@@ -18,24 +18,24 @@ public class Pagina implements Serializable {
 	
 	private final int maxSize;
 	private int size;
-	private List<Tupla> tuples;
+	private List<Tupla> tuplas;
 	
 	public Pagina(int maxSize){
 		this.maxSize = maxSize;
 		this.size = 0;
-		this.tuples = new ArrayList<Tupla>();
+		this.tuplas = new ArrayList<Tupla>();
 	}
 
 	public int getSize() {
 		return size;
 	}
 
-	public List<Tupla> getTuples() {
-		return tuples;
+	public List<Tupla> getTuplas() {
+		return tuplas;
 	}
 
-	public void setTuples(List<Tupla> tuples) {
-		this.tuples = tuples;
+	public void setTuplas(List<Tupla> tuplas) {
+		this.tuplas = tuplas;
 	}
 	
 	public int getMaxSize(){
@@ -44,6 +44,6 @@ public class Pagina implements Serializable {
 	
 	public void addTuple(Tupla tuple){
 		size++;
-		tuples.add(tuple);
+		tuplas.add(tuple);
 	}
 }
