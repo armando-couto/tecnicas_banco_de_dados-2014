@@ -14,17 +14,15 @@ import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class HashJoin implements JoinAlgorithm {
+public class HashJoin implements AlgoritmoJoin {
 
 	private Hashtable<Integer, Integer> hashTableArtist = new Hashtable<Integer, Integer>();
 	private Hashtable<Integer, Integer> hashTableMusic = new Hashtable<Integer, Integer>();
 
 	public RelationalTable join(RelationalTable artist, RelationalTable music) {
-		String[] resultColumns = ArrayUtils.concat(artist.getColumnsNames(),
-				music.getColumnsNames());
+		String[] resultColumns = ArrayUtils.concat(artist.getColumnsNames(), music.getColumnsNames());
 
-		RelationalTable resultTable = RelationalTable.newTable(
-				GlobalVars.pageSize, resultColumns);
+		RelationalTable resultTable = RelationalTable.newTable(GlobalVars.pageSize, resultColumns);
 		try {
 			List<Tupla> artistTuples = artist.getAllTuples();
 			List<Tupla> musicTuples = music.getAllTuples();
@@ -43,13 +41,10 @@ public class HashJoin implements JoinAlgorithm {
 
 			for (Tupla artistTuple : artistTuples) {
 				for (Tupla musicTuple : musicTuples) {
-					int bucketMusic = hashFunction((Integer) musicTuple
-							.get("ID_ARTIST"));
-					int bucketArtist = hashFunction((Integer) artistTuple
-							.get("ID"));
+					int bucketMusic = hashFunction((Integer) musicTuple.get("ID_ARTIST"));
+					int bucketArtist = hashFunction((Integer) artistTuple.get("ID"));
 					if (bucketMusic == bucketArtist) {
-						Object[] valuesArray = ArrayUtils.concat(
-								artistTuple.toArray(), musicTuple.toArray());
+						Object[] valuesArray = ArrayUtils.concat(artistTuple.toArray(), musicTuple.toArray());
 						resultTable.insert(resultColumns, valuesArray);
 					}
 				}

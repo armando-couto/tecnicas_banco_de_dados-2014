@@ -1,11 +1,18 @@
 package br.com.unifor.algoritmos_joins.dao;
 
+import java.io.Serializable;
+
 /**
  * @author armandocouto
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class BasicDao {
+public class BasicDAO implements Serializable {
+
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -202405722063791582L;
 
 	String getColumns(String[] columns) {
 		StringBuffer sb = new StringBuffer();

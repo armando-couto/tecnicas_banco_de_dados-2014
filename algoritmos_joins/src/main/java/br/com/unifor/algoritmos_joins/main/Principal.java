@@ -3,13 +3,13 @@ package br.com.unifor.algoritmos_joins.main;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import br.com.unifor.algoritmos_joins.dao.Artista;
-import br.com.unifor.algoritmos_joins.dao.Musica;
+import br.com.unifor.algoritmos_joins.dao.ArtistaDAO;
+import br.com.unifor.algoritmos_joins.dao.MusicaDAO;
 import br.com.unifor.algoritmos_joins.database.RelationalTable;
 import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
 import br.com.unifor.algoritmos_joins.join.BlockNestedLoopJoin;
 import br.com.unifor.algoritmos_joins.join.HashJoin;
-import br.com.unifor.algoritmos_joins.join.JoinAlgorithm;
+import br.com.unifor.algoritmos_joins.join.AlgoritmoJoin;
 import br.com.unifor.algoritmos_joins.join.MergeJoin;
 import br.com.unifor.algoritmos_joins.utils.RelationalTableUtils;
 
@@ -18,7 +18,7 @@ import br.com.unifor.algoritmos_joins.utils.RelationalTableUtils;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class Main {
+public class Principal {
 	private static final int BLOCK_NESTED_LOOP_JOIN = 1;
 	private static final int HASH_JOIN = 2;
 	private static final int MERGE_JOIN = 3;
@@ -28,10 +28,10 @@ public class Main {
 	private static RelationalTable music;
 
 	public static void main(String[] args) throws SQLException, DatabaseException {
-		Musica m = new Musica();
+		MusicaDAO m = new MusicaDAO();
 		m.search();
 
-		Artista a = new Artista();
+		ArtistaDAO a = new ArtistaDAO();
 		a.search();
 
 		artist = a.getSearch();
@@ -57,7 +57,7 @@ public class Main {
 	}
 
 	public static void action(int command) {
-		JoinAlgorithm ja = null;
+		AlgoritmoJoin ja = null;
 		switch (command) {
 		case BLOCK_NESTED_LOOP_JOIN:
 			ja = new BlockNestedLoopJoin();
@@ -76,7 +76,7 @@ public class Main {
 			join(ja, artist, music);
 	}
 
-	public static void join(JoinAlgorithm ja, RelationalTable t1, RelationalTable t2) {
+	public static void join(AlgoritmoJoin ja, RelationalTable t1, RelationalTable t2) {
 		RelationalTable t = ja.join(t1, t2);
 		RelationalTableUtils.print(t);
 	}

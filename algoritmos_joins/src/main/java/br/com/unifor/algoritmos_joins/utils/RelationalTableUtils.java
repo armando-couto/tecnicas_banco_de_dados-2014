@@ -16,7 +16,7 @@ public class RelationalTableUtils {
 	public static void print(RelationalTable rt) {
 		StringBuffer sbColumn = new StringBuffer();
 		String[] columns = rt.getColumnsNames();
-		List<Tupla> tuples = rt.getAllTuples();
+		List<Tupla> tuplas = rt.getAllTuples();
 		List<Pagina> pages = rt.getAllPages();
 
 		for (int i = 0; i < columns.length - 1; i++) {

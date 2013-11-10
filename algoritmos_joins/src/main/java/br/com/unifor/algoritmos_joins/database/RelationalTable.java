@@ -1,5 +1,6 @@
 package br.com.unifor.algoritmos_joins.database;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,8 +13,13 @@ import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class RelationalTable {
+public class RelationalTable implements Serializable {
 
+	/**
+	 * Serial UID. 
+	 */
+	private static final long serialVersionUID = -2488513465577324063L;
+	
 	private List<String> columnName;
 	private List<Pagina> pages;
 	private Pagina lastPage;

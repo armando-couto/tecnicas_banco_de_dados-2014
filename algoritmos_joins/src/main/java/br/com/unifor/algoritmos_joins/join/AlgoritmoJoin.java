@@ -7,6 +7,6 @@ import br.com.unifor.algoritmos_joins.database.RelationalTable;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public interface JoinAlgorithm {
+public interface AlgoritmoJoin {
 	public RelationalTable join(RelationalTable t1, RelationalTable t2);
 }

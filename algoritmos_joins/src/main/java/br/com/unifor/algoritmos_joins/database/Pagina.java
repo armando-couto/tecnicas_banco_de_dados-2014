@@ -1,5 +1,6 @@
 package br.com.unifor.algoritmos_joins.database;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,13 @@ import java.util.List;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class Pagina {
+public class Pagina implements Serializable {
 
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = 8045974622328514159L;
+	
 	private final int maxSize;
 	private int size;
 	private List<Tupla> tuples;

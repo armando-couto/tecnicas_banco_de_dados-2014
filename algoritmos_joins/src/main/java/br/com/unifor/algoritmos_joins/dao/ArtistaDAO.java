@@ -13,27 +13,31 @@ import br.com.unifor.algoritmos_joins.database.exception.DatabaseException;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class Musica extends BasicDao {
+public class ArtistaDAO extends BasicDAO {
 
-	private String[] columns = new String[] { "ID", "NAME", "ID_ARTIST" };
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = 7812186780470156721L;
+	
+	private String[] columns = new String[] { "ID", "NAME" };
 	private RelationalTable table = RelationalTable.newTable(5, columns);
 
 	public void search() {
+
 		try {
 			ConnectionFactory cf = new ConnectionFactory();
 			Connection c = cf.getConnection();
 
-			PreparedStatement st = c.prepareStatement("SELECT " + getColumns(columns) + " FROM MUSIC");
+			PreparedStatement st = c.prepareStatement("SELECT " + getColumns(columns) + " FROM ARTIST");
 			ResultSet rs = st.executeQuery();
 
-			Integer music_id = null;
 			String name = null;
 			Integer artist_id = null;
 			while (rs.next()) {
-				artist_id = rs.getInt("ID_ARTIST");
 				name = rs.getString("NAME");
-				music_id = rs.getInt("ID");
-				table.insert(columns, new Object[] { music_id, name, artist_id });
+				artist_id = rs.getInt("ID");
+				table.insert(columns, new Object[] { artist_id, name });
 			}
 			rs.close();
 			st.close();
@@ -48,4 +52,12 @@ public class Musica extends BasicDao {
 	public RelationalTable getSearch() {
 		return table;
 	}
+
+	public static void main(String[] args) {
+		ArtistaDAO a = new ArtistaDAO();
+		a.search();
+		RelationalTable rt = a.getSearch();
+		System.out.println(rt.getPagesNum());
+	}
+
 }

@@ -1,5 +1,6 @@
 package br.com.unifor.algoritmos_joins.database;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,7 +12,13 @@ import java.util.Map;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class Tupla {
+public class Tupla implements Serializable {
+	
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = -198885783985033584L;
+	
 	private List<String> columnsName;
 	private List<Object> values;
 	private Map<String, Object> valueMap;

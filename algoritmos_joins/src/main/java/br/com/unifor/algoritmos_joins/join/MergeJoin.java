@@ -13,7 +13,7 @@ import br.com.unifor.algoritmos_joins.utils.ArrayUtils;
  * @email coutoarmando@gmail.com
  * @date 29/10/2013
  */
-public class MergeJoin implements JoinAlgorithm {
+public class MergeJoin implements AlgoritmoJoin {
 
 	public RelationalTable join(RelationalTable artist, RelationalTable music) {
 		String[] resultColumns = ArrayUtils.concat(artist.getColumnsNames(), music.getColumnsNames());
